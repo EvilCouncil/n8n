@@ -8,15 +8,13 @@ services:
     ports:
       - "5678:5678"
     volumes:
-      - /srv/n8n-data:/home/node/.n8n
+      - n8n_data:/home/node/.n8n
     environment:
       - N8N_HOST=n8n.evilcouncil.org
       - N8N_PORT=5678
       - N8N_PROTOCOL=https
       - GENERIC_TIMEZONE=UTC
       - N8N_SECURE_COOKIE=true
-    command: >
-      sh -c "chmod -R 777 /home/node/.n8n 2>/dev/null; n8n start"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.n8n.entrypoints=websecure"
@@ -34,3 +32,6 @@ services:
 networks:
   proxy:
     external: true
+
+volumes:
+  n8n_data:
